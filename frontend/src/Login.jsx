@@ -14,7 +14,7 @@ function Login() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+      const res = await axios.post('https://playbook-backend-ge3g.onrender.com/api/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       alert("¡Login exitoso! Bienvenido al Playbook Ético.");
       navigate('/dashboard');
@@ -25,7 +25,7 @@ function Login() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-inter">
-      <main className="flex-grow flex items-center justify-center px-4 md:px-0 py-12 relative overflow-hidden">
+      <main className="grow flex items-center justify-center px-4 md:px-0 py-12 relative overflow-hidden">
         
         {/* Background Atmosphere */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">

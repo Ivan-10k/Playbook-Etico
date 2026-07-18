@@ -20,7 +20,7 @@ function Registro() {
 
     try {
       // Petición HTTP al backend que creamos
-      const respuesta = await axios.post('http://localhost:3000/api/auth/registro', {
+      const respuesta = await axios.post('https://playbook-backend-ge3g.onrender.com/api/auth/registro', {
         email: email,
         password: password
       });
@@ -38,7 +38,7 @@ function Registro() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-inter">
-      <main className="flex-grow flex items-center justify-center px-4 md:px-0 py-12 relative overflow-hidden">
+      <main className="grow flex items-center justify-center px-4 md:px-0 py-12 relative overflow-hidden">
         
         {/* Background Atmosphere */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
