@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4edea3;
+  --color-surface-dim: #0f141a;
+  --color-error: #ffb4ab;
+  --color-surface-container: #1b2026;
+  --color-surface-container-high: #252a31;
+  --color-on-background: #dee3eb;
+  --color-on-surface-variant: #bbcabf;
+  --color-secondary: #89ceff;
+  --color-on-surface: #dee3eb;
+  --color-background: #0f141a;
+  --color-outline: #86948a;
+
+  --font-headline-lg: "Manrope", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-headline-md: "Manrope", sans-serif;
+  --font-label-caps: "Inter", sans-serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-mono-data: "JetBrains Mono", monospace;
+  
+  --spacing-margin-sm: 12px;
+  --spacing-margin-md: 24px;
+  --spacing-margin-lg: 48px;
+  --spacing-gutter: 16px;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-body-md);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Custom CSS Animations from your design */
+@keyframes pulse-emerald {
+  0%, 100% { box-shadow: 0 0 10px rgba(78, 222, 163, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(78, 222, 163, 0.5); }
+}
+.glow-emerald { animation: pulse-emerald 3s infinite ease-in-out; }
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+}
+.glass-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(78, 222, 163, 0.3);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: revealIn 0.6s forwards ease-out;
+}
+@keyframes revealIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }

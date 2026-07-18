@@ -1,0 +1,67 @@
+// Configuración básica
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Asegúrate de que sea el que estás usando
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// MODELOS DE DATOS (TABLAS)
+// ==========================================
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  rol          String   @default("ESTUDIANTE") // Puede ser ESTUDIANTE o AUDITOR
+  creadoEn     DateTime @default(now())
+
+  // Relaciones (Un usuario tiene muchos progresos y auditorías)
+  progresos    ProgresoModulo[]
+  auditorias   Auditoria[]
+}
+
+model Modulo {
+  id          Int      @id @default(autoincrement())
+  identificador String @unique // ej: "fundamentos", "casos"
+  titulo      String
+  descripcion String
+  icono       String
+  totalClases Int
+
+  // Relaciones
+  progresos   ProgresoModulo[]
+}
+
+// Tabla Intermedia: Relaciona a un Usuario con un Módulo
+model ProgresoModulo {
+  id                Int      @id @default(autoincrement())
+  usuarioId         Int
+  moduloId          Int
+  clasesCompletadas Int      @default(0)
+  estado            String   @default("BLOQUEADO") // BLOQUEADO, EN_CURSO, COMPLETADO
+  actualizadoEn     DateTime @updatedAt
+
+  // Llaves foráneas
+  usuario           Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  modulo            Modulo   @relation(fields: [moduloId], references: [id], onDelete: Cascade)
+
+  // Restricción: Un usuario solo puede tener un registro de progreso por cada módulo
+  @@unique([usuarioId, moduloId])
+}
+
+// Tabla para el Security Audit Hub
+model Auditoria {
+  id             Int      @id @default(autoincrement())
+  usuarioId      Int
+  tituloControl  String   // Ej: "Privacidad por diseño"
+  hashValidacion String   // Ej: "48e9...2a11"
+  riskScore      String   // Low, Neutral, High
+  fecha          DateTime @default(now())
+
+  // Llave foránea
+  usuario        Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+}
