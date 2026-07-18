@@ -35,7 +35,7 @@ function Dashboard() {
     const token = localStorage.getItem('token');
     try {
       // Enviamos la petición PUT al backend para impactar PostgreSQL
-      await axios.post('http://localhost:3000/api/auth/completar-modulo', {
+      await axios.post('https://playbook-backend-ge3g.onrender.com/api/auth/completar-modulo', {
         identificadorModulo: 'fundamentos'
       }, {
         headers: { Authorization: `Bearer ${token}` }
@@ -60,11 +60,11 @@ function Dashboard() {
           const config = { headers: { Authorization: `Bearer ${token}` } };
 
           // 1. Obtener el perfil del Ingeniero
-          const resMe = await axios.get('http://localhost:3000/api/auth/me', config);
+          const resMe = await axios.get('https://playbook-backend-ge3g.onrender.com/api/auth/me', config);
           setUserData(resMe.data);
 
           // 2. Inicializar base de datos con los módulos éticos
-          await axios.post('http://localhost:3000/api/auth/init', {}, config);
+          await axios.post('https://playbook-backend-ge3g.onrender.com/api/auth/init', {}, config);
           console.log('Sincronización con PostgreSQL exitosa: Datos éticos listos.');
 
         } catch (error) {
